@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("In viewDidLoad, is guessed letter field the first responder?", guessedLetterField.isFirstResponder)
+        guessLetterButton.isEnabled = false
+        playAgainButton.isHidden = true
     }
     
     func updateUIAfterGuess(){
@@ -27,24 +28,27 @@ class ViewController: UIViewController {
     }
     
     @IBAction func guessedLetterFieldChanged(_ sender: UITextView) {
-        print("Hey the guessed letter field changed!")
+        if let letterGuessed = guessedLetterField.text!.last{
+            guessedLetterField.text = String(letterGuessed)
+            guessLetterButton.isEnabled = true
+        }
+        else{
+            //disable the button if there is no single character in the guessedLetterField
+            guessLetterButton.isEnabled = false
+        }
     }
     
     @IBAction func doneKeyPressed(_ sender: UITextField) {
-        print("In doneKeyPressed, is guessed letter field the first responder before updateUIAfteGuess?", guessedLetterField.isFirstResponder)
         updateUIAfterGuess()
-        print("In doneKeyPressed, is guessed letter field the first responder after updateUIAfteGuess?", guessedLetterField.isFirstResponder)
     }
     
     @IBAction func guessLetterButtonPressed(_ sender: UIButton) {
-        print("In guessLetterButtonPressed, is guessed letter field the first responder before updateUIAfteGuess?", guessedLetterField.isFirstResponder)
         updateUIAfterGuess()
-        print("In guessLetterButtonPressed, is guessed letter field the first responder after updateUIAfteGuess?", guessedLetterField.isFirstResponder)
     }
     
     @IBAction func playAgainButtonPressed(_ sender: UIButton) {
         
     }
     
-}
+} 
 
